@@ -1,10 +1,15 @@
 import { ThemeProvider } from './context/ThemeContext'
+import ErrorBoundary from './components/ErrorBoundary'
 import AppRouter from './routes/AppRouter'
 
-export default function App() {
+function App() {
   return (
     <ThemeProvider>
-      <AppRouter />
+      <ErrorBoundary>
+        <AppRouter />
+      </ErrorBoundary>
     </ThemeProvider>
   )
 }
+
+export default App

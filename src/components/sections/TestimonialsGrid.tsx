@@ -44,11 +44,11 @@ export default function TestimonialsGrid() {
 
   return (
     <div ref={ref} className="reveal max-w-5xl mx-auto px-6 lg:px-8 pb-24">
-      <div className="grid sm:grid-cols-2 gap-8">
-        {testimonials.map((t, i) => (
+      <div className="grid sm:grid-cols-2 gap-8 reveal-group">
+        {testimonials.map((t) => (
           <article
             key={t.name}
-            className={`reveal reveal-delay-${(i % 2) + 1} bg-white dark:bg-char rounded-2xl p-8 shadow-card dark:shadow-dark-card hover:shadow-card-lg hover:-translate-y-1 transition-all duration-300`}
+            className={`reveal bg-white dark:bg-char rounded-2xl p-8 shadow-card dark:shadow-dark-card hover:shadow-card-lg hover:scale-102 hover:-translate-y-2 transition-all duration-300 ease-out cursor-default`}
           >
             <Stars count={t.rating} />
             <blockquote className="font-display text-bodylg italic text-text-primary leading-relaxed mt-4 mb-6">

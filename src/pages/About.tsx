@@ -1,8 +1,10 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import ImagePlaceholder from '../components/ui/ImagePlaceholder'
 import { useReveal } from '../hooks/useReveal'
+import { setPageMeta } from '../components/utils/meta'
 
 const values = [
   {
@@ -28,15 +30,22 @@ const values = [
 ]
 
 export default function About() {
-  const storyRef  = useReveal<HTMLElement>()
+  const storyRef = useReveal<HTMLElement>()
   const valuesRef = useReveal<HTMLElement>()
-  const quoteRef  = useReveal<HTMLElement>()
+  const quoteRef = useReveal<HTMLElement>()
+
+  useEffect(() => {
+    setPageMeta(
+      'About Avani | Yoga Teacher',
+      'Learn about Avani, a dedicated yoga teacher with 5+ years of experience. Specializing in Ashtanga, Hatha, and Vinyasa yoga. From government employee to transformational yoga guide.'
+    )
+  }, [])
 
   return (
     <>
       <Navbar />
 
-      <main className="pt-20">
+      <main id="main" className="pt-20">
 
         {/* ── Hero header — direct CSS animations ───────────────────────── */}
         <section className="section-pad bg-linen dark:bg-char transition-colors duration-300">
@@ -115,18 +124,18 @@ export default function About() {
         {/* ── Values — scroll reveal ─────────────────────────────────────── */}
         <section
           ref={valuesRef}
-          className="reveal section-pad bg-linen dark:bg-char transition-colors duration-300"
+          className="reveal section-pad bg-gradient-to-b from-linen via-linen to-linen/70 dark:from-char dark:via-char dark:to-ink transition-colors duration-300"
         >
           <div className="container-custom">
             <div className="reveal text-center mb-14">
               <span className="section-label">Guiding Principles</span>
               <h2 className="text-h2">What I Believe In</h2>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {values.map((v, i) => (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 reveal-group">
+              {values.map((v) => (
                 <div
                   key={v.title}
-                  className={`reveal reveal-delay-${i + 1} bg-white dark:bg-ink rounded-2xl p-7 shadow-card dark:shadow-dark-card transition-colors duration-300`}
+                  className={`reveal bg-white dark:bg-char rounded-2xl p-7 shadow-card dark:shadow-dark-card transition-all duration-300 hover:scale-105 hover:-translate-y-2`}
                 >
                   <span className="text-3xl mb-4 block">{v.icon}</span>
                   <h3 className="font-display text-h4 mb-3">{v.title}</h3>
@@ -140,7 +149,7 @@ export default function About() {
         {/* ── Quote CTA — scroll reveal ──────────────────────────────────── */}
         <section
           ref={quoteRef}
-          className="reveal section-pad bg-espresso dark:bg-ink transition-colors duration-300"
+          className="reveal section-pad bg-gradient-to-br from-espresso via-walnut to-walnut dark:from-walnut dark:via-ink dark:to-ink transition-colors duration-300"
         >
           <div className="container-custom text-center max-w-3xl">
             <p className="reveal font-display text-h2 italic text-cream leading-relaxed mb-8">
@@ -151,7 +160,7 @@ export default function About() {
             </p>
             <Link
               to="/register"
-              className="reveal reveal-delay-2 inline-block px-7 py-3.5 rounded-full bg-terracotta text-white font-semibold text-bodysm hover:bg-walnut transition shadow-card"
+              className="reveal reveal-delay-2 inline-block px-7 py-3.5 rounded-full bg-terracotta text-white font-semibold text-bodysm hover:bg-caramel transition shadow-card"
             >
               Begin Your Journey
             </Link>

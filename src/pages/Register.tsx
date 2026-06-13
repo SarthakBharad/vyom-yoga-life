@@ -1,12 +1,21 @@
-import Navbar       from '../components/layout/Navbar'
-import Footer       from '../components/layout/Footer'
+import { useEffect } from 'react'
+import Navbar from '../components/layout/Navbar'
+import Footer from '../components/layout/Footer'
 import RegisterForm from '../components/sections/RegisterForm'
+import { setPageMeta } from '../components/utils/meta'
 
 export default function Register() {
+  useEffect(() => {
+    setPageMeta(
+      'Register for Yoga Classes',
+      'Register now for private sessions, group classes, or workshops at Vyom Yoga Life. Both online and offline options available.'
+    )
+  }, [])
+
   return (
     <>
       <Navbar />
-      <main className="pt-20">
+      <main id="main" className="pt-20">
         <section className="section-pad">
           <div className="container-custom">
             <div className="text-center mb-12">

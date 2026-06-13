@@ -54,6 +54,10 @@ export default {
           '0%':   { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition:  '200% 0' },
         },
+        lift: {
+          '0%':   { transform: 'scale(1) translateY(0)', boxShadow: '0 2px 16px rgba(52,62,72,0.08)' },
+          '100%': { transform: 'scale(1.05) translateY(-8px)', boxShadow: '0 8px 40px rgba(52,62,72,0.14)' },
+        },
       },
 
       animation: {
@@ -64,6 +68,7 @@ export default {
         'fade-up-d4': 'fadeUp 0.7s ease-out 0.60s forwards',
         'fade-in':    'fadeIn 0.5s ease-out forwards',
         'slide-down': 'slideDown 0.4s ease-out forwards',
+        'lift':       'lift 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
       },
 
       boxShadow: {
@@ -71,6 +76,10 @@ export default {
         'card-lg':   '0 8px 40px rgba(52,62,72,0.14)',
         'inner-top': 'inset 0 4px 12px rgba(52,62,72,0.06)',
         'dark-card': '0 2px 16px rgba(0,0,0,0.30)',
+      },
+
+      transitionTimingFunction: {
+        'ease-out-cubic': 'cubic-bezier(0.33, 1, 0.68, 1)',
       },
     },
   },

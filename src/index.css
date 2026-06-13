@@ -32,6 +32,40 @@
   h1, h2, h3, h4 { @apply font-display text-text-primary; }
   a { @apply transition-colors duration-200; }
   img { @apply max-w-full; }
+  
+  /* Accessibility: Skip link styling */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  
+  .focus:not-sr-only:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: revert;
+    margin: revert;
+    overflow: visible;
+    clip: revert;
+    white-space: normal;
+  }
+  
+  /* Enhanced focus states for keyboard navigation */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid #be8050;
+    outline-offset: 2px;
+  }
 }
 
 @layer components {
@@ -42,16 +76,60 @@
 }
 
 @layer utilities {
+  /* Reveal animation base */
   .reveal {
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 0.65s ease-out, transform 0.65s ease-out;
   }
-  .reveal.revealed { opacity: 1; transform: translateY(0); }
+  
+  .reveal.revealed { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+  
+  /* Legacy delay classes (kept for compatibility) */
   .reveal-delay-1 { transition-delay: 0.1s; }
   .reveal-delay-2 { transition-delay: 0.2s; }
   .reveal-delay-3 { transition-delay: 0.3s; }
   .reveal-delay-4 { transition-delay: 0.4s; }
+  
+  /* New stagger animation for grid/list items */
+  .reveal-group > .reveal:nth-child(1) { transition-delay: 0s; }
+  .reveal-group > .reveal:nth-child(2) { transition-delay: 0.08s; }
+  .reveal-group > .reveal:nth-child(3) { transition-delay: 0.16s; }
+  .reveal-group > .reveal:nth-child(4) { transition-delay: 0.24s; }
+  .reveal-group > .reveal:nth-child(5) { transition-delay: 0.32s; }
+  .reveal-group > .reveal:nth-child(6) { transition-delay: 0.4s; }
+  .reveal-group > .reveal:nth-child(n+7) { transition-delay: 0.48s; }
+  
+  /* Decorative elements */
   .skew-bottom { clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); padding-bottom: 6rem; }
   .skew-top    { clip-path: polygon(0 4%, 100% 0, 100% 100%, 0 100%); padding-top: 6rem; }
+  
+  /* Enhanced card lift effect on hover */
+  .card-lift {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                box-shadow 0.3s ease;
+  }
+  
+  .card-lift:hover {
+    transform: scale(1.02) translateY(-6px);
+  }
+  
+  /* Leader line for callouts */
+  .leader {
+    stroke-dasharray: 2 4;
+    stroke-width: 0.5;
+    opacity: 0.5;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

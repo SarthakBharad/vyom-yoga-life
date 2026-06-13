@@ -12,7 +12,10 @@ export default function Stats() {
   const ref = useReveal<HTMLElement>()
 
   return (
-    <section ref={ref} className="reveal section-pad bg-linen dark:bg-ink transition-colors duration-300">
+    <section 
+      ref={ref} 
+      className="reveal section-pad bg-gradient-to-r from-linen from-10% via-linen via-50% to-terracotta/5 dark:from-ink dark:via-char dark:to-terracotta/10 transition-colors duration-300"
+    >
       <div className="container-custom">
         <div className="grid md:grid-cols-2 gap-16 items-center">
 
@@ -32,16 +35,19 @@ export default function Stats() {
               With over five years of dedicated practice and teaching, I have cultivated a deeply personal approach to yoga — one that fosters both physical strength and mental well-being in every student.
             </p>
 
-            <div className="grid grid-cols-3 gap-6 mb-10">
+            <div className="grid grid-cols-3 gap-6 mb-10 reveal-group">
               {stats.map(stat => (
-                <div key={stat.label} className="text-center">
+                <div key={stat.label} className="reveal text-center">
                   <p className="font-display text-h2 text-terracotta">{stat.value}</p>
                   <p className="text-xs text-text-secondary mt-1 leading-snug">{stat.label}</p>
                 </div>
               ))}
             </div>
 
-            <Link to="/contact" className="inline-block px-7 py-3.5 rounded-full bg-espresso dark:bg-char text-cream font-semibold text-bodysm hover:bg-walnut dark:hover:bg-walnut transition">
+            <Link 
+              to="/contact" 
+              className="inline-block px-7 py-3.5 rounded-full bg-espresso dark:bg-char text-cream font-semibold text-bodysm hover:bg-walnut dark:hover:bg-walnut transition"
+            >
               Book a Session
             </Link>
           </div>

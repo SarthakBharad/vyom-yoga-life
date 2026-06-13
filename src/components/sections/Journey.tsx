@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useReveal } from '../../hooks/useReveal'
-import instructor from '../../assets/instructor.png'
+import instructor from '../../assets/Instructor.jpeg'
 
 export default function Journey() {
   const ref = useReveal<HTMLElement>()

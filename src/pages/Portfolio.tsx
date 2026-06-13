@@ -1,12 +1,21 @@
-import Navbar      from '../components/layout/Navbar'
-import Footer      from '../components/layout/Footer'
+import { useEffect } from 'react'
+import Navbar from '../components/layout/Navbar'
+import Footer from '../components/layout/Footer'
 import GalleryGrid from '../components/sections/GalleryGrid'
+import { setPageMeta } from '../components/utils/meta'
 
 export default function Portfolio() {
+  useEffect(() => {
+    setPageMeta(
+      'Portfolio - Yoga Classes, Sessions & Workshops',
+      'View our portfolio of yoga classes, private sessions, group classes, and workshops. See the variety of yoga practices we offer.'
+    )
+  }, [])
+
   return (
     <>
       <Navbar />
-      <main className="pt-20">
+      <main id="main" className="pt-20">
         <section className="bg-linen dark:bg-char section-pad text-center transition-colors duration-300">
           <div className="container-custom">
             <span className="section-label opacity-0 animate-fade-up">Our Work</span>

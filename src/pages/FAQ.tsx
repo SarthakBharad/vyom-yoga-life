@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import { useReveal } from '../hooks/useReveal'
+import { setPageMeta } from '../components/utils/meta'
 
 const faqs = [
   {
@@ -79,108 +80,107 @@ const faqs = [
         q: 'What is your cancellation policy?',
         a: 'We ask for at least 24 hours notice for cancellations or rescheduling of private sessions. Group class spots can generally be transferred to another session in the same week. Full details will be shared when you register.',
       },
-      {
-        q: 'Is there a trial class available?',
-        a: 'Yes. We offer a trial session so you can experience the teaching style before committing to a regular schedule. Reach out via the Contact page to arrange yours.',
-      },
     ],
   },
 ]
 
-function AccordionItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false)
-  return (
-    <div className="border-b border-linen dark:border-walnut/20 last:border-none">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-start justify-between gap-4 py-5 text-left group"
-      >
-        <span className="font-display text-bodylg text-text-primary group-hover:text-terracotta transition-colors duration-200">
-          {q}
-        </span>
-        <span className="flex-shrink-0 mt-1 w-5 h-5 rounded-full border border-linen dark:border-walnut/30 flex items-center justify-center text-terracotta">
-          <svg
-            className={`w-3 h-3 transition-transform duration-300 ${open ? 'rotate-45' : ''}`}
-            fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"
-          >
-            <line x1="12" y1="5" x2="12" y2="19" />
-            <line x1="5" y1="12" x2="19" y2="12" />
-          </svg>
-        </span>
-      </button>
-      <div className={`overflow-hidden transition-all duration-300 ${open ? 'max-h-96 pb-5' : 'max-h-0'}`}>
-        <p className="text-body text-text-secondary leading-relaxed pr-8">{a}</p>
-      </div>
-    </div>
-  )
-}
-
 export default function FAQ() {
-  const bodyRef = useReveal<HTMLElement>()
-  const ctaRef  = useReveal<HTMLDivElement>()
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null)
+  const ref = useReveal<HTMLElement>()
+
+  useEffect(() => {
+    setPageMeta(
+      'Frequently Asked Questions - Yoga Classes',
+      'Find answers to common questions about yoga classes, private sessions, workshops, pricing, and health considerations.'
+    )
+  }, [])
+
+  const toggleQuestion = (index: number) => {
+    setExpandedIndex(expandedIndex === index ? null : index)
+  }
 
   return (
     <>
       <Navbar />
 
-      <main className="pt-20">
+      <main id="main" className="pt-20">
 
-        {/* Page header — direct CSS animations (immediately in viewport) */}
-        <section className="bg-linen dark:bg-char section-pad text-center transition-colors duration-300">
+        {/* Header */}
+        <section className="section-pad bg-linen dark:bg-char text-center transition-colors duration-300">
           <div className="container-custom">
-            <span className="section-label opacity-0 animate-fade-up">Help</span>
-            <h1 className="text-h1 mb-4 opacity-0 animate-fade-up-d1">
-              Frequently Asked Questions
-            </h1>
+            <span className="section-label opacity-0 animate-fade-up">Questions</span>
+            <h1 className="text-h1 mb-4 opacity-0 animate-fade-up-d1">Frequently Asked Questions</h1>
             <p className="text-body text-text-secondary max-w-xl mx-auto opacity-0 animate-fade-up-d2">
-              Everything you need to know before stepping onto the mat.
-              Can't find your answer?{' '}
-              <a href="/contact" className="text-terracotta hover:text-walnut transition underline underline-offset-2">
-                Get in touch.
-              </a>
+              Have questions? We've compiled answers to the most common inquiries about our yoga programs.
             </p>
           </div>
         </section>
 
-        {/* FAQ body — scroll reveal */}
-        <section
-          ref={bodyRef}
-          className="reveal section-pad bg-cream dark:bg-ink transition-colors duration-300"
-        >
+        {/* FAQ Content */}
+        <section ref={ref} className="reveal section-pad bg-cream dark:bg-ink transition-colors duration-300">
           <div className="container-custom max-w-3xl">
-            {faqs.map((group, i) => (
-              <div
-                key={group.category}
-                className={`reveal reveal-delay-${(i % 4) + 1} mb-14`}
-              >
-                <span className="section-label">{group.category}</span>
-                <div className="bg-white dark:bg-char rounded-2xl px-6 shadow-card dark:shadow-dark-card transition-colors duration-300">
-                  {group.items.map((item) => (
-                    <AccordionItem key={item.q} q={item.q} a={item.a} />
-                  ))}
+
+            {faqs.map((section, sectionIndex) => (
+              <div key={section.category} className="mb-16">
+                <h2 className="reveal text-h3 text-text-primary mb-8 pb-4 border-b border-linen dark:border-walnut/20">
+                  {section.category}
+                </h2>
+
+                <div className="reveal-group space-y-4">
+                  {section.items.map((faq, itemIndex) => {
+                    const globalIndex = faqs.slice(0, sectionIndex).reduce((sum, s) => sum + s.items.length, 0) + itemIndex
+                    const isExpanded = expandedIndex === globalIndex
+
+                    return (
+                      <div
+                        key={faq.q}
+                        className="reveal bg-white dark:bg-char rounded-2xl shadow-card dark:shadow-dark-card transition-all duration-300 overflow-hidden hover:shadow-card-lg"
+                      >
+                        <button
+                          onClick={() => toggleQuestion(globalIndex)}
+                          className="w-full px-8 py-6 text-left flex items-start justify-between gap-4 hover:bg-linen dark:hover:bg-walnut/10 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta"
+                          aria-expanded={isExpanded}
+                        >
+                          <h3 className="font-display text-h4 text-text-primary flex-1">
+                            {faq.q}
+                          </h3>
+                          <span className="text-2xl text-terracotta flex-shrink-0 transition-transform duration-300" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                            ▼
+                          </span>
+                        </button>
+
+                        {isExpanded && (
+                          <div className="px-8 pb-6 border-t border-linen dark:border-walnut/20 animate-fade-in">
+                            <p className="text-body text-text-secondary leading-relaxed">
+                              {faq.a}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
             ))}
+
           </div>
         </section>
 
-        {/* Still have questions CTA — scroll reveal */}
-        <div ref={ctaRef} className="reveal px-6 pb-24 bg-cream dark:bg-ink transition-colors duration-300">
-          <div className="container-custom max-w-3xl">
-            <div className="reveal text-center py-12 px-8 bg-linen dark:bg-char rounded-2xl transition-colors duration-300">
-              <h3 className="font-display text-h3 mb-3">Still have questions?</h3>
-              <p className="text-body text-text-secondary mb-6">
-                We'd love to hear from you. Send us a message and we'll reply within 24 hours.
-              </p>
-              <a
-                href="/contact"
-                className="inline-block px-7 py-3.5 rounded-full bg-terracotta text-white font-semibold text-bodysm hover:bg-walnut transition shadow-card"
-              >
-                Contact Us
-              </a>
-            </div>
+        {/* CTA */}
+        <section className="section-pad bg-gradient-to-b from-linen to-cream dark:from-char dark:to-ink text-center transition-colors duration-300">
+          <div className="container-custom max-w-2xl">
+            <p className="text-h3 text-text-primary mb-6">Still have questions?</p>
+            <p className="text-body text-text-secondary mb-8">
+              We're here to help. Reach out to us directly and we'll be happy to answer any questions you have.
+            </p>
+            <a
+              href="/contact"
+              className="inline-block px-7 py-3.5 rounded-full bg-terracotta text-white font-semibold text-bodysm hover:bg-walnut transition shadow-card"
+            >
+              Get in Touch
+            </a>
           </div>
-        </div>
+        </section>
 
       </main>
 

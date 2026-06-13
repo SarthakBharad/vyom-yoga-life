@@ -1,14 +1,22 @@
 type Props = {
-  label?:    string
+  label?: string
   className?: string
-  aspect?:   string
+  aspect?: string
+  loading?: 'lazy' | 'eager'
 }
 
-export default function ImagePlaceholder({ label = 'Image', className = '', aspect = '4/3' }: Props) {
+export default function ImagePlaceholder({ 
+  label = 'Image', 
+  className = '', 
+  aspect = '4/3',
+  loading = 'lazy'
+}: Props) {
   return (
     <div
       className={`relative overflow-hidden rounded-xl bg-linen dark:bg-char flex items-center justify-center transition-colors duration-300 ${className}`}
       style={{ aspectRatio: aspect }}
+      role="img"
+      aria-label={label}
     >
       <style>{`
         .placeholder-light { --grid-line: #c8d4de; }
@@ -24,12 +32,27 @@ export default function ImagePlaceholder({ label = 'Image', className = '', aspe
         }}
       />
       <div className="relative flex flex-col items-center gap-2 text-text-secondary select-none">
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="opacity-50">
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          width="32" 
+          height="32" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="1.4" 
+          strokeLinecap="round" 
+          strokeLinejoin="round" 
+          className="opacity-50"
+          aria-hidden="true"
+        >
           <rect x="3" y="3" width="18" height="18" rx="2" />
           <circle cx="8.5" cy="8.5" r="1.5" />
           <polyline points="21 15 16 10 5 21" />
         </svg>
         <span className="text-xs font-semibold uppercase tracking-widest opacity-60">{label}</span>
+        {loading === 'lazy' && (
+          <span className="text-xs opacity-40 mt-1">Lazy loading</span>
+        )}
       </div>
     </div>
   )

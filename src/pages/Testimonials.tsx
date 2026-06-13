@@ -1,12 +1,21 @@
-import Navbar           from '../components/layout/Navbar'
-import Footer           from '../components/layout/Footer'
+import { useEffect } from 'react'
+import Navbar from '../components/layout/Navbar'
+import Footer from '../components/layout/Footer'
 import TestimonialsGrid from '../components/sections/TestimonialsGrid'
+import { setPageMeta } from '../components/utils/meta'
 
 export default function Testimonials() {
+  useEffect(() => {
+    setPageMeta(
+      'Student Testimonials & Success Stories',
+      'Read real testimonials from our yoga students. Transform your life through our classes - over 500 students have already benefited.'
+    )
+  }, [])
+
   return (
     <>
       <Navbar />
-      <main className="pt-20">
+      <main id="main" className="pt-20">
         <section className="bg-espresso dark:bg-ink section-pad text-center transition-colors duration-300">
           <div className="container-custom">
             <span className="section-label text-terracotta dark:text-caramel opacity-0 animate-fade-up">Stories</span>

@@ -1,7 +1,9 @@
-import { Link }     from 'react-router-dom'
-import Navbar      from '../components/layout/Navbar'
-import Footer      from '../components/layout/Footer'
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import Navbar from '../components/layout/Navbar'
+import Footer from '../components/layout/Footer'
 import ContactForm from '../components/sections/ContactForm'
+import { setPageMeta } from '../components/utils/meta'
 
 const details = [
   {
@@ -19,10 +21,17 @@ const details = [
 ]
 
 export default function Contact() {
+  useEffect(() => {
+    setPageMeta(
+      'Contact Us - Get in Touch',
+      'Contact Vyom Yoga Life for inquiries about yoga classes, private sessions, workshops, or any questions about your yoga journey.'
+    )
+  }, [])
+
   return (
     <>
       <Navbar />
-      <main className="pt-20">
+      <main id="main" className="pt-20">
         <section className="section-pad">
           <div className="container-custom">
             <div className="grid md:grid-cols-2 gap-16 items-start">
@@ -31,7 +40,7 @@ export default function Contact() {
                 <span className="section-label">Connect</span>
                 <h1 className="text-h1 mb-5">Get in Touch</h1>
                 <p className="text-body text-text-secondary leading-relaxed mb-10">
-                  Have questions about classes, bookings, or which style of yoga suits you best? Send us a message and we will get back to you.
+                  Have questions about classes, bookings, or which style of yoga suits you best? Send us a message and we will get back to you within 24 hours.
                 </p>
                 <ul className="flex flex-col gap-6 mb-10">
                   {details.map(d => (
@@ -40,7 +49,7 @@ export default function Contact() {
                       <div>
                         <p className="text-xs text-text-secondary uppercase tracking-wider mb-0.5">{d.label}</p>
                         {d.href
-                          ? <a href={d.href} className="text-body font-medium text-text-primary hover:text-terracotta transition">{d.value}</a>
+                          ? <a href={d.href} className="text-body font-medium text-text-primary hover:text-terracotta transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta">{d.value}</a>
                           : <p className="text-body font-medium text-text-primary">{d.value}</p>
                         }
                       </div>
@@ -61,10 +70,12 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-char rounded-2xl p-8 md:p-10 shadow-card dark:shadow-dark-card transition-colors duration-300">
-                <h2 className="font-display text-h3 mb-2">Questions?</h2>
-                <p className="text-bodysm text-text-secondary mb-8">Fill in the form below and we'll be in touch soon.</p>
-                <ContactForm />
+              <div>
+                <div className="bg-white dark:bg-char rounded-2xl p-6 md:p-10 shadow-card dark:shadow-dark-card transition-colors duration-300">
+                  <span className="section-label">Message</span>
+                  <h2 className="text-h3 mb-6">Send us a message</h2>
+                  <ContactForm />
+                </div>
               </div>
             </div>
           </div>

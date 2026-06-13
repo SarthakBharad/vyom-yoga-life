@@ -39,7 +39,7 @@ export default function Hero() {
     <section className="relative min-h-screen flex items-center overflow-hidden">
 
       {/* Background */}
-      <div className="absolute inset-0 bg-linen dark:bg-char transition-colors duration-300">
+      <div className="absolute inset-0 bg-gradient-to-b from-linen via-linen to-linen/90 dark:from-char dark:via-char dark:to-ink transition-colors duration-300">
         <div
           className="absolute inset-0 opacity-20"
           style={{
@@ -50,8 +50,8 @@ export default function Hero() {
         />
       </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-espresso/30 via-espresso/40 to-espresso/70" />
+      {/* Gradient Overlay - Enhanced with warmth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-espresso/20 via-espresso/40 to-walnut/80 dark:from-ink/30 dark:via-ink/50 dark:to-caramel/30 transition-colors duration-300" />
 
       {/* Content */}
       <div className="relative z-10 container-custom grid md:grid-cols-2 items-center gap-12 px-6">
@@ -62,6 +62,7 @@ export default function Hero() {
             src={logo}
             alt="Vyom Yoga Life Logo"
             className="w-[280px] md:w-[360px] rounded-2xl shadow-2xl shadow-black/40 dark:shadow-black/60 transition-all duration-700"
+            loading="eager"
           />
         </div>
 
@@ -74,7 +75,10 @@ export default function Hero() {
             </span>
           </div>
 
-          <h1 className="opacity-0 animate-fade-up-d2 font-display text-cream leading-tight mb-6" style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}>
+          <h1 
+            className="opacity-0 animate-fade-up-d2 font-display text-cream leading-tight mb-6" 
+            style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)' }}
+          >
             Rediscover<br />
             <em className="not-italic text-terracotta">Yourself</em>
           </h1>
@@ -85,10 +89,16 @@ export default function Hero() {
 
           {/* CTAs */}
           <div className="opacity-0 animate-fade-up-d4 flex flex-wrap items-center justify-center md:justify-start gap-4 mb-8">
-            <Link to="/register" className="px-7 py-3.5 rounded-full bg-terracotta text-white font-semibold text-bodysm hover:bg-walnut transition shadow-card">
+            <Link 
+              to="/register" 
+              className="px-7 py-3.5 rounded-full bg-terracotta text-white font-semibold text-bodysm hover:bg-caramel transition shadow-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cream"
+            >
               Register Now
             </Link>
-            <Link to="/portfolio" className="px-7 py-3.5 rounded-full border border-cream/40 text-cream font-semibold text-bodysm hover:bg-cream/10 transition">
+            <Link 
+              to="/portfolio" 
+              className="px-7 py-3.5 rounded-full border border-cream/40 text-cream font-semibold text-bodysm hover:bg-cream/10 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cream"
+            >
               Explore Classes
             </Link>
           </div>
@@ -102,8 +112,8 @@ export default function Hero() {
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={s.label}
-                className="w-9 h-9 rounded-full border border-cream/25 flex items-center justify-center text-cream/70 hover:text-cream hover:border-cream/60 hover:bg-cream/10 transition-all duration-200"
+                aria-label={`Visit Vyom Yoga Life on ${s.label}`}
+                className="w-9 h-9 rounded-full border border-cream/25 flex items-center justify-center text-cream/70 hover:text-cream hover:border-cream/60 hover:bg-cream/10 transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cream"
               >
                 {s.icon}
               </a>
@@ -116,6 +126,7 @@ export default function Hero() {
       <div
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-cream/50 opacity-0 animate-fade-in"
         style={{ animationDelay: '1s' }}
+        aria-hidden="true"
       >
         <span className="text-xs tracking-[0.2em] uppercase">Scroll</span>
         <span className="block w-px h-10 bg-cream/30" />

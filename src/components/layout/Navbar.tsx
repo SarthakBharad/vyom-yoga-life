@@ -39,7 +39,7 @@ function ThemeToggle() {
     <button
       onClick={toggleTheme}
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="relative w-9 h-9 flex items-center justify-center rounded-full transition-all duration-200 bg-linen hover:bg-terracotta/20 text-walnut dark:bg-walnut/20 dark:hover:bg-terracotta/20 dark:text-linen focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta/50"
+      className="relative w-9 h-9 flex items-center justify-center rounded-full transition-all duration-200 bg-linen hover:bg-terracotta/20 text-walnut dark:bg-walnut/20 dark:hover:bg-terracotta/20 dark:text-linen focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta"
     >
       <span className={`absolute transition-all duration-300 ${isDark ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-75 rotate-90'}`}>
         <SunIcon />
@@ -52,7 +52,7 @@ function ThemeToggle() {
 }
 
 export default function Navbar() {
-  const [scrolled,   setScrolled]   = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
@@ -74,7 +74,11 @@ export default function Navbar() {
       >
         <div className="max-w-6xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
 
-          <Link to="/" onClick={closeMobile} className="font-display text-h4 text-text-primary hover:text-terracotta transition">
+          <Link 
+            to="/" 
+            onClick={closeMobile} 
+            className="font-display text-h4 text-text-primary hover:text-terracotta transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta"
+          >
             Vyom Yoga Life
           </Link>
 
@@ -86,14 +90,17 @@ export default function Navbar() {
                 to={link.to}
                 end={link.end}
                 className={({ isActive }) =>
-                  `text-bodysm font-semibold tracking-wide transition ${isActive ? 'text-terracotta' : 'text-text-primary hover:text-terracotta'}`
+                  `text-bodysm font-semibold tracking-wide transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta ${isActive ? 'text-terracotta' : 'text-text-primary hover:text-terracotta'}`
                 }
               >
                 {link.label}
               </NavLink>
             ))}
             <ThemeToggle />
-            <Link to="/register" className="ml-2 px-5 py-2.5 rounded-full bg-terracotta text-white text-bodysm font-semibold hover:bg-walnut transition shadow-sm">
+            <Link 
+              to="/register" 
+              className="ml-2 px-5 py-2.5 rounded-full bg-terracotta text-white text-bodysm font-semibold hover:bg-walnut transition shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta"
+            >
               Register Now
             </Link>
           </nav>
@@ -103,8 +110,9 @@ export default function Navbar() {
             <ThemeToggle />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="flex flex-col gap-1.5 p-2 text-text-primary"
+              className="flex flex-col gap-1.5 p-2 text-text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta rounded"
               aria-label="Toggle menu"
+              aria-expanded={mobileOpen}
             >
               <span className={`block h-0.5 w-6 bg-current transition-all duration-300 ${mobileOpen ? 'translate-y-2 rotate-45' : ''}`} />
               <span className={`block h-0.5 w-6 bg-current transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
@@ -129,7 +137,7 @@ export default function Navbar() {
                 end={link.end}
                 onClick={closeMobile}
                 className={({ isActive }) =>
-                  `font-display text-h3 transition ${isActive ? 'text-terracotta' : 'text-text-primary hover:text-terracotta'}`
+                  `font-display text-h3 transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta ${isActive ? 'text-terracotta' : 'text-text-primary hover:text-terracotta'}`
                 }
               >
                 {link.label}
@@ -138,7 +146,11 @@ export default function Navbar() {
           </nav>
           <div className="my-8 h-px bg-linen dark:bg-walnut/30" />
           <div className="mt-auto">
-            <Link to="/register" onClick={closeMobile} className="block text-center px-6 py-3 rounded-full bg-terracotta text-white font-semibold hover:bg-walnut transition">
+            <Link 
+              to="/register" 
+              onClick={closeMobile} 
+              className="block text-center px-6 py-3 rounded-full bg-terracotta text-white font-semibold hover:bg-walnut transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta"
+            >
               Register Now
             </Link>
           </div>
