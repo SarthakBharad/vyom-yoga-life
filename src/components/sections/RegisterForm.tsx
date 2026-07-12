@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { submitRegistration, isDuplicateRegistration } from '../utils/firebaseUtils'
 
-type FormState = 'idle' | 'loading' | 'success' | 'error'
-
 export default function RegisterForm() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
