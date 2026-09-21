@@ -65,8 +65,9 @@ if (recaptchaSiteKey) {
   } catch (error) {
     console.error('App Check failed to initialize:', error)
   }
-} else if (import.meta.env.PROD) {
-  console.warn('⚠️ VITE_RECAPTCHA_SITE_KEY is not set — App Check is disabled in production.')
+} else if (import.meta.env.DEV) {
+  // DEV only — a production console should be clean for anyone who opens it.
+  console.info('App Check is disabled (VITE_RECAPTCHA_SITE_KEY not set).')
 }
 
 export const db: Firestore = getFirestore(app)
