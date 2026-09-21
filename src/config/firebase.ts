@@ -1,5 +1,6 @@
 import { initializeApp, getApps, getApp } from 'firebase/app'
 import { getFirestore, type Firestore } from 'firebase/firestore'
+import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'
 import { getAnalytics, isSupported, type Analytics } from 'firebase/analytics'
 
 const firebaseConfig = {
@@ -28,6 +29,45 @@ if (missing.length > 0) {
 
 // Reuse the existing app instead of creating a second one (HMR / double import safe).
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig)
+
+// ============================================
+// APP CHECK
+// ============================================
+// Without this, anyone can read your API key out of the JS bundle and write
+// directly to Firestore with curl — security rules alone cannot tell your
+// website apart from a script. App Check attaches a reCAPTCHA v3 attestation
+// token to every request, and (once enforcement is on) Firebase rejects
+// anything that arrives without one.
+//
+// Setup:
+//   1. google.com/recaptcha/admin → register a site → reCAPTCHA v3
+//      → add vyomyogalife.com AND localhost → copy the SITE key
+//   2. Firebase Console → Build → App Check → register your web app
+//      → reCAPTCHA v3 → paste the SECRET key
+//   3. Add VITE_RECAPTCHA_SITE_KEY to .env.local and Vercel
+//   4. Watch App Check → Metrics for a few days. Only once ~100% of requests
+//      are verified, click Enforce on Cloud Firestore.
+const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY
+
+if (recaptchaSiteKey) {
+  // Lets you test against a real App Check-enforced backend from localhost.
+  // Run `pnpm dev`, open the console, copy the debug token it prints, and
+  // register it under App Check → Manage debug tokens.
+  if (import.meta.env.DEV) {
+    ;(self as unknown as Record<string, unknown>).FIREBASE_APPCHECK_DEBUG_TOKEN = true
+  }
+
+  try {
+    initializeAppCheck(app, {
+      provider: new ReCaptchaV3Provider(recaptchaSiteKey),
+      isTokenAutoRefreshEnabled: true,
+    })
+  } catch (error) {
+    console.error('App Check failed to initialize:', error)
+  }
+} else if (import.meta.env.PROD) {
+  console.warn('⚠️ VITE_RECAPTCHA_SITE_KEY is not set — App Check is disabled in production.')
+}
 
 export const db: Firestore = getFirestore(app)
 
