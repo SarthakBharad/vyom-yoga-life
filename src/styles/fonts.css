@@ -1,0 +1,88 @@
+/* Vyom Yoga Life — self-hosted webfonts
+ *
+ * Place at: src/styles/fonts.css
+ * Font files at: src/assets/fonts/*.woff2
+ *
+ * These are WOFF2 conversions of the Recia + Supreme OTFs, subset to
+ * Latin + Latin Extended (covers English, German umlauts, ß, and European
+ * punctuation). Each file is ~18-25 KB instead of the 34-54 KB OTF, and
+ * the browser downloads only the weights a given page actually uses.
+ *
+ * font-display: swap means text paints immediately in the fallback font
+ * and re-renders when the webfont arrives — no invisible-text flash.
+ */
+
+/* ============================================
+   RECIA — display / headings
+   ============================================ */
+
+@font-face {
+  font-family: 'Recia';
+  src: url('../assets/fonts/Recia-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Recia';
+  src: url('../assets/fonts/Recia-Italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Recia';
+  src: url('../assets/fonts/Recia-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Recia';
+  src: url('../assets/fonts/Recia-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Recia';
+  src: url('../assets/fonts/Recia-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================
+   SUPREME — body / UI
+   ============================================ */
+
+@font-face {
+  font-family: 'Supreme';
+  src: url('../assets/fonts/Supreme-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Supreme';
+  src: url('../assets/fonts/Supreme-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Supreme ships no Semibold. Declaring the Bold file across the 600-700
+   range makes `font-semibold` (600) use real Bold outlines instead of a
+   smeared synthetic bold — your buttons and labels use 600 everywhere. */
+@font-face {
+  font-family: 'Supreme';
+  src: url('../assets/fonts/Supreme-Bold.woff2') format('woff2');
+  font-weight: 600 700;
+  font-style: normal;
+  font-display: swap;
+}
