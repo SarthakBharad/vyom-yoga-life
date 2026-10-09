@@ -3,18 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <!-- Warm up the Firestore connection while the JS bundle downloads.
-         Saves ~150-300ms on the first form submit. -->
     <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin />
-
-    <!-- NOTE: no <link rel="preload"> for the logo here. It lives in src/assets,
-         so Vite content-hashes its filename at build time and a hardcoded path
-         would 404. Hero.tsx sets fetchPriority="high" on the <img> instead,
-         which achieves the same thing. -->
-
+    
     <!-- SEO -->
     <title>Vyom Yoga Life - Transform Your Practice</title>
     <meta name="description" content="Professional yoga instruction with private sessions, group classes, and workshops. Online and offline availability. Transform your life through mindful yoga practice." />
@@ -35,20 +26,6 @@
     <meta name="twitter:title" content="Vyom Yoga Life - Transform Your Practice" />
     <meta name="twitter:description" content="Professional yoga instruction with private sessions, group classes, and workshops." />
     <meta name="twitter:image" content="https://vyomyogalife.com/og-image.jpg" />
-
-    <!-- NOTE ON FONTS
-         The old <link rel="preload" as="style"> had no matching stylesheet, so it
-         downloaded the CSS and then threw it away (check the console — Chrome warns
-         about this). The actual font load was the @import at the top of index.css,
-         which is the slowest possible way to load a font.
-
-         Fonts are now self-hosted via @fontsource (see main.tsx). That removes the
-         third-party round trip entirely AND stops sending your visitors' IP
-         addresses to Google, which German courts have treated as a GDPR violation
-         (LG München I, 20 Jan 2022, 3 O 17493/20). Relevant for a site with
-         European visitors.
-
-         Nothing font-related belongs in this file any more. -->
   </head>
   <body>
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:bg-terracotta focus:text-white focus:p-3 focus:z-50 focus:font-semibold">

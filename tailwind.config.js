@@ -21,10 +21,6 @@ export default {
           inverse:   '#fcf9f0',
         },
       },
-
-      // Self-hosted — see src/styles/fonts.css for the @font-face rules.
-      // The fallbacks are chosen to have similar metrics, so the swap from
-      // fallback to webfont shifts the layout as little as possible.
       fontFamily: {
         display: ['Recia', 'Georgia', 'Times New Roman', 'serif'],
         body:    ['Supreme', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],

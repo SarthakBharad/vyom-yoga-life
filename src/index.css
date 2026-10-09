@@ -46,17 +46,6 @@
     border-width: 0;
   }
   
-  .focus:not-sr-only:focus {
-    position: static;
-    width: auto;
-    height: auto;
-    padding: revert;
-    margin: revert;
-    overflow: visible;
-    clip: revert;
-    white-space: normal;
-  }
-  
   /* Enhanced focus states for keyboard navigation */
   a:focus-visible,
   button:focus-visible,
