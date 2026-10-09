@@ -1,5 +1,5 @@
-import { Component, ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import { Component } from 'react'
+import type { ErrorInfo, ReactNode } from 'react'
 
 interface Props {
   children: ReactNode
@@ -24,9 +24,9 @@ export default class ErrorBoundary extends Component<Props, State> {
     return { hasError: true, error }
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Log error to console in development
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       console.error('Error boundary caught:', error, errorInfo)
     }
   }
@@ -41,7 +41,7 @@ export default class ErrorBoundary extends Component<Props, State> {
             <p className="text-body text-text-secondary mb-8 leading-relaxed">
               We encountered an unexpected error. Please try refreshing the page or return to home.
             </p>
-            {process.env.NODE_ENV === 'development' && this.state.error && (
+            {import.meta.env.DEV && this.state.error && (
               <div className="mb-8 p-4 bg-red-100 dark:bg-red-900/20 rounded-lg text-left">
                 <p className="text-xs font-mono text-red-800 dark:text-red-300 break-words">
                   {this.state.error.message}
@@ -55,12 +55,15 @@ export default class ErrorBoundary extends Component<Props, State> {
               >
                 Refresh Page
               </button>
-              <Link
-                to="/"
+              {/* Plain <a>, not <Link>: this boundary sits outside <BrowserRouter>,
+                  so a router <Link> would throw while rendering this fallback.
+                  A full page load also clears the broken state. */}
+              <a
+                href="/"
                 className="px-7 py-3.5 rounded-full border border-terracotta text-terracotta font-semibold hover:bg-terracotta/5 transition"
               >
                 Back to Home
-              </Link>
+              </a>
             </div>
           </div>
         </div>

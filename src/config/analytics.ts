@@ -21,5 +21,6 @@ export async function initAnalytics(): Promise<void> {
     const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig)
     analytics = getAnalytics(app)
   } catch {
+    // Analytics is optional (ad blockers, privacy modes) — never let it break the site.
   }
 }

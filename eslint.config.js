@@ -12,12 +12,21 @@ export default defineConfig([
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      reactHooks.configs.flat.recommended,
+      // eslint-plugin-react-hooks v5 names its flat config 'recommended-latest'
+      // (`configs.flat.recommended` only exists from v6 onwards).
+      reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
     ],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+    },
+    rules: {
+      // ThemeContext.tsx exports its useTheme() hook alongside ThemeProvider.
+      'react-refresh/only-export-components': [
+        'error',
+        { allowConstantExport: true, allowExportNames: ['useTheme'] },
+      ],
     },
   },
 ])

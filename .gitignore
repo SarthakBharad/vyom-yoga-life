@@ -12,6 +12,15 @@ dist
 dist-ssr
 *.local
 
+# Environment files (.env.local is already covered by *.local)
+.env
+
+# Vercel CLI project link
+.vercel
+
+# Original, unoptimised media kept by optimize-media.ps1
+media-src/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

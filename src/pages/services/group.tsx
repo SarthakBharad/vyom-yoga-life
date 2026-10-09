@@ -1,8 +1,10 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../../components/layout/Navbar'
 import Footer from '../../components/layout/Footer'
 import ImagePlaceholder from '../../components/ui/ImagePlaceholder'
 import { useReveal } from '../../hooks/useReveal'
+import { setPageMeta } from '../../components/utils/meta'
 
 const features = [
   { icon: '👥', title: 'Community Energy',    desc: 'Practising alongside others creates a shared energy that is genuinely motivating and hard to replicate alone.' },
@@ -25,11 +27,18 @@ export default function GroupClasses() {
   const featuresRef = useReveal<HTMLElement>()
   const ctaRef      = useReveal<HTMLElement>()
 
+  useEffect(() => {
+    setPageMeta(
+      'Group Yoga Classes - Online & Offline',
+      'Small, welcoming group yoga classes drawing from Ashtanga, Hatha and Vinyasa. Join in person or online via video call.'
+    )
+  }, [])
+
   return (
     <>
       <Navbar />
 
-      <main className="pt-20">
+      <main id="main" className="pt-20">
 
         {/* Header — direct CSS animations */}
         <section className="section-pad bg-linen dark:bg-char text-center transition-colors duration-300">

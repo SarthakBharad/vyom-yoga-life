@@ -71,7 +71,7 @@ This is a client project, built and maintained by [Sarthak Bharad](https://githu
 | Routing    | React Router v6                                                    |
 | Backend    | Firebase: Cloud Firestore, App Check, Analytics                    |
 | Hosting    | Vercel, with Vercel Web Analytics                                  |
-| Tooling    | pnpm, ESLint 9 (flat config), FFmpeg (media pipeline)              |
+| Tooling    | pnpm, ESLint 9 (flat config), Prettier, FFmpeg (media pipeline)    |
 
 ## Pages
 
@@ -121,6 +121,8 @@ The site runs at **http://localhost:5173**.
 | `pnpm build`   | Type-check (`tsc -b`) and build to `dist/`          |
 | `pnpm preview` | Serve the production build locally                  |
 | `pnpm lint`    | Run ESLint across the project                       |
+| `pnpm format`  | Format source and config files with Prettier        |
+| `pnpm format:check` | Check formatting without writing changes       |
 
 ## Environment variables
 
@@ -217,7 +219,7 @@ winget install Gyan.FFmpeg
 .\optimize-media.ps1 -Mode photo -InputPath "$HOME\Downloads\studio.jpg" -Name gallery-01
 ```
 
-- Optimised files are written to `src/assets/`. Originals are moved (video) or copied (photo) to `media-src/`.
+- Optimised files are written to `src/assets/`. Originals are moved (video) or copied (photo) to `media-src/`, which is git-ignored.
 - The script warns if the MP4 is over the **1.5 MB** target and suggests a re-encode at 960px.
 - Photo mode prints a ready-to-paste `<ResponsiveImage />` snippet for the new files.
 

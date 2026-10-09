@@ -1,8 +1,10 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../../components/layout/Navbar'
 import Footer from '../../components/layout/Footer'
 import ImagePlaceholder from '../../components/ui/ImagePlaceholder'
 import { useReveal } from '../../hooks/useReveal'
+import { setPageMeta } from '../../components/utils/meta'
 
 const upcomingWorkshops = [
   { title: 'Introduction to Pranayama',      date: 'Coming Soon', duration: '2 hours',    level: 'All Levels',              desc: 'A deep dive into the science and practice of breathwork. Learn the foundational techniques — Nadi Shodhana, Kapalabhati, Bhramari — and understand how each affects the nervous system.' },
@@ -26,11 +28,18 @@ export default function Workshops() {
   const includesRef = useReveal<HTMLElement>()
   const ctaRef      = useReveal<HTMLElement>()
 
+  useEffect(() => {
+    setPageMeta(
+      'Yoga Workshops - Pranayama, Headstands & More',
+      'Focused yoga workshops on breathwork, inversions, stress relief and the Ashtanga Primary Series. Small groups, held online and offline.'
+    )
+  }, [])
+
   return (
     <>
       <Navbar />
 
-      <main className="pt-20">
+      <main id="main" className="pt-20">
 
         {/* Header — direct CSS animations */}
         <section className="section-pad bg-linen dark:bg-char text-center transition-colors duration-300">

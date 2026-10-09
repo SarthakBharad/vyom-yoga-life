@@ -1,8 +1,10 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../../components/layout/Navbar'
 import Footer from '../../components/layout/Footer'
 import ImagePlaceholder from '../../components/ui/ImagePlaceholder'
 import { useReveal } from '../../hooks/useReveal'
+import { setPageMeta } from '../../components/utils/meta'
 
 const benefits = [
   { icon: '🎯', title: 'Fully Personalised',     desc: 'Every session is built around your goals, health history, current level, and schedule — no generic sequences.' },
@@ -25,11 +27,18 @@ export default function PrivateSessions() {
   const faqRef      = useReveal<HTMLElement>()
   const ctaRef      = useReveal<HTMLElement>()
 
+  useEffect(() => {
+    setPageMeta(
+      'Private Yoga Sessions - Online & Offline',
+      'One-on-one yoga with Avani, designed around your goals, health history and schedule. Private sessions available online and in person.'
+    )
+  }, [])
+
   return (
     <>
       <Navbar />
 
-      <main className="pt-20">
+      <main id="main" className="pt-20">
 
         {/* Header — direct CSS animations */}
         <section className="section-pad bg-linen dark:bg-char text-center transition-colors duration-300">

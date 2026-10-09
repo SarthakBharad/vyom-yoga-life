@@ -1,8 +1,17 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
+import { setPageMeta } from '../components/utils/meta'
 
 export default function NotFound() {
+  useEffect(() => {
+    setPageMeta(
+      'Page Not Found',
+      'The page you are looking for does not exist. Explore yoga classes, private sessions and workshops at Vyom Yoga Life.'
+    )
+  }, [])
+
   return (
     <>
       <Navbar />
